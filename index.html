@@ -26,29 +26,30 @@
 <section id="about"><div class="shell section-pad"><div class="section-head"><h2>About Malfunction Labs</h2><div class="system-note">STUDIO_PROFILE //</div></div><div class="studio-intro"><h3>Ideas. Systems. Solutions. Chaos.</h3><p>Malfunction Labs™ is an independent creative and technical studio exploring games, software, media, simulation, automation and unusual ideas.</p><p class="studio-goal">The goal is simple: let useful ideas survive long enough to become real things.</p></div><div class="about-wrap"><div class="about-art"><div class="about-image-frame"><img id="aboutPortrait" alt="UserSubmit and LiL Crazy — Malfunction Labs portrait"></div><div class="system-note">FOUNDER_STATUS: QUESTIONABLE // CHAOS_SOURCE: VERIFIED</div><div class="portrait-toggle"><button type="button" class="active" data-portrait="UserLCclay">CLAY // INTERPRETATION</button><button type="button" data-portrait="UserLCirl">IRL // SOURCE</button></div></div><div class="about-copy"><div class="eyebrow blue">About // UserSubmit</div><h2>Build it.<br><span>Break it.</span><br>Learn why.</h2><p class="lede">Industrial mechanic, systems builder, modder, designer and habitual asker of: <strong>“Why the fuck are we doing it that way?”</strong></p><p>Malfunction Labs did not begin with a pitch deck. It grew out of years spent around machines, production floors, maintenance problems, workflows, games, mods and people doing complicated work with systems that could have been simpler.</p><p>The common thread is practical: <strong>look at what is actually happening, fix the thing that is actually wrong, and leave the system better than you found it.</strong> That mindset came from manufacturing and maintenance long before it ever touched code. Centerlines, tracking, preventive maintenance, process improvement and troubleshooting all teach the same lesson: the machine does not care what the meeting said it should do. It only cares what the system actually does.</p><p>The Lab applies that thinking everywhere. A mod can become a systems-design problem. A maintenance headache can become software. A simulator can become research. A ridiculous conversation can become a company operating principle if it keeps proving useful under pressure.</p><div class="founder-grid"><div><span>Trade DNA</span><b>Industrial maintenance + manufacturing</b></div><div><span>Operating Mode</span><b>Practical experimentation</b></div><div><span>Default Question</span><b>Can this work better?</b></div><div><span>Corporate Polish</span><b>Under active investigation</b></div></div><p>AI is part of the toolchain here, but not the excuse. Specialists can research, organize, prototype, test, model, route, document and argue with each other. <strong>UserSubmit remains the final runtime authority.</strong> Access is not authority, approval is not a trigger, and a build passing is not the same thing as the thing actually working.</p><div class="manifesto"><h3 class="phil-head">The Operating Philosophy</h3><p class="phil-body">We do not need every idea to work. We need to test it honestly, learn something useful, preserve what mattered, adjust the design, and move forward.</p><p class="orangeText"><strong>WE ARE CHAOS. CHAOS IS US.</strong></p><p class="blueText"><strong>Trial. Document. Adjust. Launch.</strong></p><p>Chaos is allowed. Organizational amnesia is not.</p><p>If the requirement says sheep, deliver a fucking sheep.</p></div></div></div></div></section>
 <section id="contact"><div class="shell section-pad"><div class="contact-grid"><div class="contact-intro"><div class="eyebrow">Contact // Routing</div><h2>Send the<br><span>signal.</span></h2><p>Malfunction Labs is still in the build stage, so communication is intentionally simple. Pick the route that matches what you are trying to do. Everything currently lands in the same monitored system while dedicated infrastructure waits until it is actually needed.</p><div class="system-note">SHEET &gt; EMAIL &gt; SHEEP &gt; MAYBE™</div></div><div><form class="ml-form" id="mlForm" novalidate><div class="field"><label for="f-topic">Route</label><select id="f-topic" name="topic"><option value="ideas">Ideas // Concepts &mdash; pitches, weird concepts, collaborations</option><option value="services">Services // Work &mdash; systems, software, project inquiries</option><option value="direct">UserSubmit // Direct &mdash; founder / project-owner route</option></select></div><div class="field-row"><div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" maxlength="200" autocomplete="name" required></div><div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" maxlength="320" autocomplete="email" required></div></div><div class="field"><label for="f-message">Message</label><textarea id="f-message" name="message" rows="6" maxlength="5000" required></textarea><div class="counter"><span id="f-count">0</span> / 5000</div></div><div class="hp" aria-hidden="true"><label for="f-company">Company</label><input id="f-company" name="company" type="text" tabindex="-1" autocomplete="off"></div><div class="form-actions"><button type="submit" id="f-send">Transmit</button><div class="form-status" id="f-status" role="status" aria-live="polite"></div></div></form><p class="contact-note">Messages are logged and routed on arrival. You will get a reference number the moment it lands. Do not buy the sheep while the sheet is still doing the fucking job.</p></div></div></div></section>
 </main>
-<footer><div class="shell footer-grid"><div>MALFUNCTION LABS™</div><div>WE ARE CHAOS. CHAOS IS US.</div><div class="system-note foot-status"><i class="dot"></i> SYSTEMS ONLINE</div></div><div class="shell foot-legal-row"><div class="foot-copy">&copy; 2026 MALFUNCTION LABS™ // ALL ARCHITECTURES RESERVED.</div><div class="foot-tag">Ideas. Systems. Solutions. Chaos.</div><a class="foot-link" href="#contact">Comms / Contact</a></div><span class="ver" aria-hidden="true">ML.WD.WEBML-v2,rev11</span></footer>
+<footer><div class="shell footer-grid"><div>MALFUNCTION LABS™</div><div>WE ARE CHAOS. CHAOS IS US.</div><div class="system-note foot-status"><i class="dot"></i> SYSTEMS ONLINE</div></div><div class="shell foot-legal-row"><div class="foot-copy">&copy; 2026 MALFUNCTION LABS™ // ALL ARCHITECTURES RESERVED.</div><div class="foot-tag">Ideas. Systems. Solutions. Chaos.</div><a class="foot-link" href="#contact">Comms / Contact</a></div><span class="ver" aria-hidden="true">ML.WD.WEBML-v2,rev12</span></footer>
 <script>
 /* ===================================================================
    CONTACT PIPELINE — malfunctionlabs.com
 
-   Fill these three values and the form goes live. Leave any of them
-   empty and the page degrades on its own rather than failing:
+   All three are filled and verified live (2026-09-12). Leave any of
+   them empty and the page degrades on its own rather than failing:
      - no Supabase   -> nothing is stored, the email still sends
      - no Web3Forms  -> nothing is emailed, the message is still stored
      - neither       -> the visitor's own mail app opens, pre-filled
 
-   The anon key is MEANT to be public. It is in the page source by
-   design. What protects the data is row-level security in Supabase:
-   anonymous can insert and cannot read. Run
-   WEBML_supabase_setup_v1.sql, then verify an anon read returns
-   nothing before trusting it.
+   The publishable key is MEANT to be public. It is in the page source
+   by design. What protects the data is row-level security: anonymous
+   can insert and cannot read. VERIFIED 2026-09-12 against the live
+   project - an anon SELECT returns 200 with an empty array, while a
+   missing table returns 404, so the empty result is the policy working
+   rather than the table being absent.
    =================================================================== */
 var ML_SUPABASE = {
-  url:     "",   /* https://xxxxxxxx.supabase.co */
-  anonKey: ""    /* the long anon public key */
+  url:     "https://rgptpqjdxwpshiqolksa.supabase.co",
+  anonKey: "sb_publishable_qjGqHfZiCNjzmld4Dn4W1g_KFCH79GM"
 };
 var ML_MAIL = {
-  web3formsKey: "",                       /* access key from web3forms.com */
+  web3formsKey: "876f4983-e384-4422-ace7-26d77115e82a",
   fallbackTo:   "usersubmit@malfunctionlabs.com"
 };
 var ML_ROUTES = {
