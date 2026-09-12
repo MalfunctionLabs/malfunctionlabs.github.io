@@ -731,6 +731,24 @@
         var(--steel-border);
     }
 
+    /* Version tag. Scheme is UserSubmit's:
+       ML=Malfunction Labs, WD=WEB DESIGN LAB, WEBML=owning chair,
+       v1=first live deployment, rev=this site's build number.
+       The tag lives in the page so it cannot disagree with what is
+       served. Bump it on every ship. */
+    .ver {
+      display: block;
+      margin: 10px 0 0;
+      text-align: right;
+      font-size: 7px;
+      letter-spacing: .06em;
+      line-height: 1;
+      color: rgba(226, 232, 240, .18);
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      cursor: default;
+    }
+
     /* =========================================================
        RESPONSIVE
        ========================================================= */
@@ -1397,6 +1415,8 @@
       </div>
 
     </div>
+
+    <span class="ver" aria-hidden="true">ML.WD.WEBML-v1,rev2</span>
 
   </footer>
 
