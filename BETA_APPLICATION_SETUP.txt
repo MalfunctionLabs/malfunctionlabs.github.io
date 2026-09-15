@@ -1,0 +1,116 @@
+MALFUNCTION LABS - BETA APPLICATION INTAKE
+
+Scope
+Adds Apply Now to the existing static website and saves MRS applications
+in the existing LABS Supabase project. This is application intake only.
+It does not create accounts, consume the six tester slots, sign agreements,
+grant downloads, change IP/session rules, or publish the parked tester portal.
+The public site uses only the code name MRS.
+
+Files
+apply.html / beta-apply.js          Application form and submission logic.
+beta-config.js                    Public endpoint and Turnstile site key.
+supabase/migrations/202609150001_beta_applications.sql
+                                  Private application table and permissions.
+supabase/functions/beta-apply/     Server-side validation and storage.
+supabase/config.toml               Public intake endpoint configuration.
+tests/                            Backend and database verification.
+
+Activation order
+1. Select LABS project rgptpqjdxwpshiqolksa in Supabase. Do not use HCC.
+   Run the migration file in SQL Editor ONCE, or deploy it using your
+   established migration workflow after reconciling migration history.
+   This standalone migration creates a new table; rerunning it fails safely
+   with an existing-table error. It does not replace any existing tables.
+
+2. In Cloudflare Turnstile, create a managed widget for:
+     malfunctionlabs.com
+     www.malfunctionlabs.com
+     malfunctionlabs.github.io
+   Keep the secret key outside git. Put only the PUBLIC site key into
+   beta-config.js. The form checks action beta_apply, and the backend
+   checks both action and exact hostname against the requesting origin.
+
+3. In Supabase Edge Functions > Secrets, set TURNSTILE_SECRET_KEY to the
+   widget secret. Hosted Supabase supplies SUPABASE_URL and
+   SUPABASE_SERVICE_ROLE_KEY. Never put service-role or secret keys in
+   HTML, beta-config.js, screenshots, chat, commits or a public repository.
+
+4. Deploy the beta-apply Edge Function, including index.ts and handler.mjs.
+   From a checkout with an authenticated Supabase CLI:
+     supabase functions deploy beta-apply --project-ref rgptpqjdxwpshiqolksa
+   supabase/config.toml disables JWT verification for this public intake
+   function only. This is necessary because applicants have no account.
+   The handler still requires server-verified Turnstile before inserting.
+   If using the dashboard, ensure JWT verification is disabled for this
+   function, and upload BOTH source files.
+
+5. Publish the reviewed website changes only after the backend and public
+   site key are configured. With an empty site key, the page deliberately
+   says applications are not open and disables submission.
+   Preserve the existing index footer build tag until release; at release,
+   advance it according to the site's revision convention. Add the matching
+   new-page artifact tag to apply.html as part of that release.
+
+6. Verify in the deployed website with a clearly marked test application:
+   - new application appears in beta_applications with status pending;
+   - resubmit the same email with changed name: exactly one original row;
+   - invalid/expired Turnstile does not insert;
+   - anon and authenticated users cannot select/insert/update/delete rows;
+   - errors preserve the form; retry succeeds without a second record.
+   Remove the test application after verification.
+   Test with the REAL widget, not Cloudflare's always-pass testing keys.
+   Local mocks and Postgres tests do not replace this deployment check.
+
+Review applications
+Supabase > Table Editor > beta_applications. Sort created_at descending.
+status values: pending, reviewing, accepted, declined.
+admin_notes are private notes for the reviewer.
+Applications are not visible in the public site or tester portal.
+
+Selecting accepted is ONLY a review decision. To onboard a tester, follow
+the existing WEBML_TESTER_PORTAL_SETUP_v1.txt process: create the account,
+add it to the tester list, set its authorization record, obtain the required
+agreement signatures, and approve access. Existing portal deployment/IP
+verification work remains separate; this intake does not claim it is done.
+
+One original application per project and case-normalized email. A repeat
+does not update the first application or reveal whether that email exists.
+Applicants can request corrections/removal using the contact address shown
+on the form. Handle those requests in the private dashboard.
+
+Consent
+beta-contact-v1 records agreement to the exact checkbox wording in apply.html:
+"I agree that Malfunction Labs may store this application and contact me
+about beta testing. This is not an NDA or tester agreement."
+created_at records receipt time. No marketing permission is collected.
+Changing the wording requires a new consent version and matching schema/
+handler update. No claim is made about the legal status of other agreements.
+
+Security and limits
+- Turnstile verified server-side; hostname and action must match.
+- RLS enabled, with no public policies; anon/authenticated grants revoked.
+- Server selects allowed fields; applicants cannot set review/access state.
+- Secrets remain in Supabase, and errors do not reveal database details.
+- Body limited to 16 KB; input lengths are validated server-side and in SQL.
+- Each project/email is unique; retries do not replace or multiply records.
+- Application data is stored as text. Any future display must escape it.
+- CORS restricts browser origins; it is not an identity/access control.
+- Turnstile mitigates automation but does not replace usage monitoring or
+  platform rate limits. There is no custom per-IP rate limiter in this patch.
+- Email addresses are not verified; review/contact happens separately.
+- No email is sent automatically. Review the private Supabase queue.
+- No application data is stored in GitHub or browser local storage.
+
+Local tests
+Use Node 22 or later:
+  node --test tests/beta-apply.test.mjs
+For the Postgres permission/constraint test, install PGlite 0.5.8 in a
+temporary folder and set PGLITE_MODULE to its dist/index.js absolute path:
+  PGLITE_MODULE=/absolute/path/to/pglite/dist/index.js node --test tests/beta-database.test.mjs
+Or make @electric-sql/pglite available through normal Node module resolution.
+Never commit node_modules or test applicant data.
+
+References
+https://supabase.com/docs/guides/functions/function-configuration
+https://developers.cloudflare.com/turnstile/get-started/server-side-validation/
