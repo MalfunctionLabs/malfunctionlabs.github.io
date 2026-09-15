@@ -1,0 +1,3 @@
+# Public application intake; the handler validates Turnstile before writing.
+[functions.beta-apply]
+verify_jwt = false

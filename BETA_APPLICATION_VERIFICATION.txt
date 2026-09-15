@@ -1,0 +1,34 @@
+BETA APPLICATION INTAKE - VERIFICATION
+2026-09-15
+
+Base: main at 21882e2d2b8a3960d0b8f6100db4b6f9e7cfacbf.
+Existing page tag: ML.WD.WEBML-v2,rev19. No release tag advanced in this draft.
+
+PASS - 18 backend tests with mocked external HTTP services:
+Input validation, email normalization, caller-supplied privileged fields
+discarded, challenge success/failure, hostname/action mismatch, missing
+configuration, storage/network failure, payload limit and CORS/method checks.
+
+PASS - real Postgres engine via PGlite 0.5.8, with Supabase role stand-ins:
+Migration executes; anonymous and authenticated reads/writes denied;
+service-role insertion works; duplicate insertion preserves the original;
+invalid consent/platform/name/email rejected; review state can be updated;
+invalid review state rejected. No tester/access tables created by intake.
+
+PASS - Chromium browser with local static files and mocked Turnstile/API:
+No horizontal overflow at 320, 375, 768 and 1440 pixels.
+Unconfigured page disables submission and says applications are not open.
+Form submits expected fields; failed save retains typed values; retry works;
+success resets fields and disables repeat submission. No JavaScript errors.
+Desktop screenshot visually inspected. External service calls were mocked;
+these tests did not create production applications or send email.
+
+PASS - JavaScript syntax and git whitespace checks.
+
+NOT YET VERIFIED / NOT DEPLOYED:
+Live Supabase migration, Edge Function deployment, real Turnstile challenge,
+production browser submission and live privacy controls. Supabase access
+and Turnstile credentials are required for activation and those checks.
+
+The existing parked tester portal and its IP verification are outside this
+patch. The historical checkpoint is not evidence of current runtime state.
